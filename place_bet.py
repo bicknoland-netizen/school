@@ -27,7 +27,8 @@ def place_bet():
 
             remainder -= bet_amount
             db.write_money(remainder)
-            break
+            return bet_amount
+        
         except ValueError:
             print("Error: Bet must be a float value.")
             
