@@ -4,9 +4,6 @@ proper error handling"""
 import db
 import sys
 
-#Todo: Must add ability for player to purchase more money.
-#Add a check of players money during this function.
-
 def place_bet():
 
     while True:
