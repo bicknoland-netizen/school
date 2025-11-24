@@ -8,7 +8,7 @@ def read_money():
     try:
         with open("money.txt", 'r') as file:
                 contents = file.read()
-                print(contents)
+                return float(contents)
     except FileNotFoundError:
         print("Error: money.txt has not been found")
         print("Tarminating program.")

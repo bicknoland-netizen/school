@@ -15,6 +15,7 @@ def place_bet():
             
             print(f"Money: {remainder}")
             bet_amount = float(input("Bet Amount: "))
+            print()
             if bet_amount < 5:
                 print("Error: Lowest bet is 5")
                 continue
