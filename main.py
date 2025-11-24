@@ -33,7 +33,12 @@ def main():
         #Enter players turn loop
         deck_handler.player_turn(deck, player_hand)
         
-
+        #Enter dealer turn loop
+        deck_handler.dealer_turn(deck, dealer_hand)
+        
+        #Determine Victor
+        victory_check(player_hand,dealer_hand, bet)
+        
         
         
         

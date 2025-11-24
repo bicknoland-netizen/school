@@ -1,5 +1,6 @@
 """This module will handle all the different deck handling functions."""
 import random
+import db
 
 def player_draw_card(deck, hand, points):
     select_card = random.randint(0, len(deck) - 1)
@@ -52,7 +53,25 @@ def player_turn(deck, hand):
     
 
 
+def dealer_turn(deck, hand):
+    while True:
+        #Check dealers points to make decision
+        dealer_points = check_value(hand)
+        #As long as points are below 17, keep hitting.
+        if dealer_points < 17:
+            dealer_draw_card(deck, hand, dealer_points)
+            continue
+        if dealer_points in range(17-21):
+            break
+        else:
+            print("\n\Dealer went bust with the following hand\n===================")
+            show_hand(hand)
+            print(f"Dealer Points: {check_value(hand)}")
+            break
+        
 
+
+#Checking the current value of target's hand 
 def check_value(hand):
     total_value = 0
     for card in hand:
@@ -61,13 +80,52 @@ def check_value(hand):
                 
             
 
-
+#print out the target's hand.
 def show_hand(hand):
     for card in hand:
         print(f"{card[1]} of {card[0]}")
         
         
+def black_jack_checker(hand):
+    if len(hand) == 2:
+        card_one = hand[0][1]
+        card_two = hand[1][1]
+        if "ace" in card_one and "10" in card_two:
+            return True
+        if "ace" in card_one and "jack" in card_two:
+            return True
+        if "ace" in card_one and "queen" in card_two:
+            return True       
+        if "ace" in card_one and "king"in card_two:
+            return True       
+        if "10" in card_one and "ace" in card_two:
+            return True
+        if "jack" in card_one and "ace" in card_two:
+            return True
+        if "queen" in card_one and "ace" in card_two:
+            return True       
+        if "king" in card_one and "ace"in card_two:
+            return True       
+    else:
+        return False
         
+                
+#check who won:
+def victory_check(player_hand,dealer_hand, bet):
+    player_value = check_value(player_hand)
+    dealer_value = check_value(dealer_hand)
+    print(f"\nYOUR POINTS:\t{player_value}")
+    print(f"DEALER'S POINTS:\t{dealer_value}")
+    if player_value > dealer_value:
+        is_blackjack = black_jack_checker(player_hand)
+        if is_blackjack == True:
+            print(f"YOU WIN WITH BLACKJACK!!!")
+            chips = db.read_money
+            new_amount = ()
+            
+        
+        
+       
 def ace_handler(points):
     print("You have drawn an Ace")
     if points < 11:
